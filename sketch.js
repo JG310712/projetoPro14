@@ -2,7 +2,8 @@ var bow , arrow,  background, redB, pinkB, greenB ,blueB ,arrowGroup;
 var bowImage, arrowImage, green_balloonImage, red_balloonImage, pink_balloonImage ,blue_balloonImage, backgroundImage;
 
 var score =0;
-function preload(){  
+function preload(){
+  
   backgroundImage = loadImage("background0.png");
   
   arrowImage = loadImage("arrow0.png");
@@ -11,7 +12,10 @@ function preload(){
   green_balloonImage = loadImage("green_balloon0.png");
   pink_balloonImage = loadImage("pink_balloon0.png");
   blue_balloonImage = loadImage("blue_balloon0.png");
+  
 }
+
+
 
 function setup() {
   createCanvas(400, 400);
@@ -26,29 +30,32 @@ function setup() {
   bow.addImage(bowImage); 
   bow.scale = 1;
   
-  score = 0  
+   score = 0  
   redB= new Group();
   greenB= new Group();
   blueB= new Group();
   pinkB= new Group();
-  arrowGroup= new Group();  
+  arrowGroup= new Group();
+ 
+  
 }
 
 function draw() {
  background(0);
   // movendo o fundo
-  scene.velocityX = -3 
+    scene.velocityX = -3 
 
-  if (scene.x < 0){
-    scene.x = scene.width/2;
-  }
+    if (scene.x < 0){
+      scene.x = scene.width/2;
+    }
   
   //movendo o arco
   bow.y = World.mouseY
   
   // soltar a flecha quando a tecla de espaço for pressionada
   if (keyDown("space")) {
-    createArrow();  
+    createArrow();
+    
   }
   
   //criando inimigos contínuos
@@ -67,37 +74,41 @@ function draw() {
   }
   
   if (arrowGroup.isTouching(redB)) {
-    
-    redB.destroyEach();
-    redB.destroy();
-    redB.Each();
-    ballon.destroyEach();
-    
-    arrowGroup.destroyEach();
+  redB.destroyEach();
+  arrowGroup.destroyEach();
     score=score+1;
-  }
+}
 
-  if (arrowGroup.isTouching(greenB)) {
-    greenB.destroyEach();
-    arrowGroup.destroyEach();
-    score=score+3;
-  }
 
-  if (arrowGroup.isTouching(blueB)) {
-    blueB.destroyEach();
-    arrowGroup.destroyEach();
-    score=score+2;
-  }
 
-  if (arrowGroup.isTouching(pinkB)) {
-    pinkB.destroyEach();
-    arrowGroup.destroyEach();
-    score=score+1;
-  }
 
+ if (arrowGroup.isTouching(greenB)) {
+  greenB.destroyEach();
+  arrowGroup.destroyEach();
+  score=score+3;
+}
+
+
+
+ if (arrowGroup.isTouching(blueB)) {
+  blueB.destroyEach();
+  arrowGroup.destroyEach();
+  score=score+2;
+}
+
+
+
+if (arrowGroup.isTouching(pinkB)) {
+  pinkB.destroyEach();
+  arrowGroup.destroyEach();
+  score=score+1;
+}
+
+  
   drawSprites();
   text("Pontuação: "+ score, 300,50);
 }
+
 
 function redBalloon() {
   var red = createSprite(0,Math.round(random(20, 370)), 10, 10);
@@ -145,10 +156,6 @@ function pinkBalloon() {
   arrow.velocityX = -4;
   arrow.lifetime = 100;
   arrow.scale = 0.3;
-  
-  arrowGroup.addGroup(arrow);
-  arrow.add(arrowGroup);
-  arrowGroup.add();
   arrowGroup.add(arrow);
    
 }
